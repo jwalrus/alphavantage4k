@@ -4,3 +4,4 @@ gradlew.bat
 gradle/
 .gradle/
 .idea/
+alphavantage4k-http/src/test/resources/api-key.txt
