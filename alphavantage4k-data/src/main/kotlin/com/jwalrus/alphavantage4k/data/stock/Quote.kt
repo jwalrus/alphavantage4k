@@ -7,6 +7,7 @@ import com.jwalrus.alphavantage4k.data.parser.PercentDeserializer
 import java.math.BigDecimal
 import java.time.LocalDate
 
+
 data class Quote(
     @JsonProperty("01. symbol")
     val symbol: String,
@@ -31,6 +32,7 @@ data class Quote(
     @JsonDeserialize(using = PercentDeserializer::class)
     val changePercent: BigDecimal
 )
+
 
 data class GlobalQuote(
     @JsonProperty("Global Quote")
