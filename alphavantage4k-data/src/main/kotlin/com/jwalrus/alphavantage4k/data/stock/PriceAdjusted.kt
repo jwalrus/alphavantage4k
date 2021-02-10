@@ -16,5 +16,9 @@ data class PriceAdjusted(
     @JsonProperty("5. adjusted close")
     val adjustedClose: BigDecimal,
     @JsonProperty("6. volume")
-    val volume: Long
+    val volume: Long,
+    @JsonProperty("7. dividend amount")
+    val dividendAmount: BigDecimal = BigDecimal.ZERO,
+    @JsonProperty("8. split coefficient")
+    val splitCoefficient: BigDecimal? = null
 )

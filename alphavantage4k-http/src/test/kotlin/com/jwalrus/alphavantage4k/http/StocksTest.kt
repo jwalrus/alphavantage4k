@@ -39,6 +39,20 @@ class StocksTest : DescribeSpec({
         response.value().timeSeries.size shouldBeGreaterThan 100
     }
 
+    describe("monthly returns") {
+        val response = testSubject.monthly("IBM")
+        response shouldHaveStatus Status.OK
+        response.value().metadata.symbol shouldBe "IBM"
+        response.value().timeSeries.size shouldBeGreaterThan 100
+    }
+
+    describe("monthly adjusted returns") {
+        val response = testSubject.monthlyAdjusted("IBM")
+        response shouldHaveStatus Status.OK
+        response.value().metadata.symbol shouldBe "IBM"
+        response.value().timeSeries.size shouldBeGreaterThan 100
+    }
+
     describe("global quote") {
         val response = testSubject.quote("F")
         response shouldHaveStatus Status.OK

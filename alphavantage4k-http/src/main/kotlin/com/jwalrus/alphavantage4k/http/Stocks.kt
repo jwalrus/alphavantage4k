@@ -30,6 +30,17 @@ internal object WeeklyAdjusted : Endpoint<WeeklyAdjustedSeries> {
     override val lens = Body.auto<WeeklyAdjustedSeries>().toLens()
 }
 
+internal object Monthly : Endpoint<MonthlySeries> {
+    override val function = "TIME_SERIES_MONTHLY"
+    override val lens = Body.auto<MonthlySeries>().toLens()
+}
+
+internal object MonthlyAdjusted : Endpoint<MonthlyAdjustedSeries> {
+    override val function = "TIME_SERIES_MONTHLY_ADJUSTED"
+    override val lens = Body.auto<MonthlyAdjustedSeries>().toLens()
+}
+
+
 class Stocks internal constructor(
     override val client: HttpHandler,
     override val apiKey: String
@@ -46,6 +57,12 @@ class Stocks internal constructor(
 
     fun weeklyAdjusted(symbol: String) =
         fetch(WeeklyAdjusted, mapOf("symbol" to symbol))
+
+    fun monthly(symbol: String) =
+        fetch(Monthly, mapOf("symbol" to symbol))
+
+    fun monthlyAdjusted(symbol: String) =
+        fetch(MonthlyAdjusted, mapOf("symbol" to symbol))
 
     fun quote(symbol: String) =
         fetch(Quote, mapOf("symbol" to symbol))
