@@ -5,11 +5,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.datatype.jsr310.deser.key.LocalDateKeyDeserializer
 import java.time.LocalDate
 
-
-data class DailyAdjustedSeries(
+data class MonthlyAdjustedSeries(
     @JsonProperty("Meta Data")
     val metadata: StockMetaData,
-    @JsonProperty("Time Series (Daily)")
+    @JsonProperty("Monthly Adjusted Time Series")
     @JsonDeserialize(keyUsing = LocalDateKeyDeserializer::class)
     val timeSeries: Map<LocalDate, PriceAdjusted>
 )

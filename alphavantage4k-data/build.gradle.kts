@@ -1,7 +1,5 @@
 
 dependencies {
-//    implementation(Libraries.ktorClientCIO)
-//    implementation(Libraries.ktorClientJackson)
     implementation(Libraries.jacksonCore)
     implementation(Libraries.jacksonAnnotations)
     implementation(Libraries.jacksonDataBind)
