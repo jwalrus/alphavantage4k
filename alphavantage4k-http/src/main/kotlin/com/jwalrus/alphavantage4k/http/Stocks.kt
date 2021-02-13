@@ -40,6 +40,11 @@ internal object MonthlyAdjusted : Endpoint<MonthlyAdjustedSeries> {
     override val lens = Body.auto<MonthlyAdjustedSeries>().toLens()
 }
 
+internal object Search : Endpoint<SearchMatches> {
+    override val function = "SYMBOL_SEARCH"
+    override val lens = Body.auto<SearchMatches>().toLens()
+}
+
 
 class Stocks internal constructor(
     override val client: HttpHandler,
@@ -66,4 +71,7 @@ class Stocks internal constructor(
 
     fun quote(symbol: String) =
         fetch(Quote, mapOf("symbol" to symbol))
+
+    fun search(keyword: String) =
+        fetch(Search, mapOf("keywords" to keyword))
 }
