@@ -1,6 +1,7 @@
 package com.jwalrus.alphavantage4k.http
 
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
@@ -57,5 +58,11 @@ class StocksTest : DescribeSpec({
         val response = testSubject.quote("F")
         response shouldHaveStatus Status.OK
         response.value().globalQuote.symbol shouldBe "F"
+    }
+
+    describe("search") {
+        val response = testSubject.search("games").also(::println)
+        response shouldHaveStatus Status.OK
+        response.value().bestMatches.map { it.symbol } shouldContain "GME"
     }
 })
