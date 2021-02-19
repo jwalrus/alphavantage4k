@@ -45,6 +45,10 @@ internal object Search : Endpoint<SearchMatches> {
     override val lens = Body.auto<SearchMatches>().toLens()
 }
 
+internal object Intraday : Endpoint<IntradaySeries> {
+    override val function = "TIME_SERIES_INTRADAY"
+    override val lens = Body.auto<IntradaySeries>().toLens()
+}
 
 class Stocks internal constructor(
     override val client: HttpHandler,
@@ -74,4 +78,14 @@ class Stocks internal constructor(
 
     fun search(keyword: String) =
         fetch(Search, mapOf("keywords" to keyword))
+
+    fun intraday(symbol: String, interval: IntradayInterval, outputSize: OutputSize, adjusted: Boolean = true) =
+        fetch(
+            Intraday, mapOf(
+                "symbol" to symbol,
+                "interval" to interval.value,
+                "adjusted" to adjusted.toString(),
+                "outputsize" to outputSize.value
+            )
+        )
 }
