@@ -4,6 +4,7 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.ints.shouldBeGreaterThan
+import io.kotest.matchers.maps.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.http4k.core.Status
 import org.http4k.kotest.shouldHaveStatus
@@ -61,8 +62,20 @@ class StocksTest : DescribeSpec({
     }
 
     describe("search") {
-        val response = testSubject.search("games").also(::println)
+        val response = testSubject.search("games")
         response shouldHaveStatus Status.OK
         response.value().bestMatches.map { it.symbol } shouldContain "GME"
+    }
+
+    describe("intraday adjusted") {
+        val response = testSubject.intraday("AAPL", IntradayInterval.FIFTEEN_MIN, OutputSize.LAST_100, adjusted = true)
+        response shouldHaveStatus Status.OK
+        response.value().timeSeries shouldHaveSize 100
+    }
+
+    describe("intraday unadjusted") {
+        val response = testSubject.intraday("AAPL", IntradayInterval.ONE_MIN, OutputSize.LAST_100, adjusted = false)
+        response shouldHaveStatus Status.OK
+        response.value().timeSeries shouldHaveSize 100
     }
 })
